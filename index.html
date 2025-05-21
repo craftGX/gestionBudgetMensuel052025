@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Budget Manager 2000 - Style Radio France</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Verdana", sans-serif;
+        background-color: #2e2e2e;
+        color: #eee;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      header {
+        background: linear-gradient(#003366, #005599);
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border-bottom: 3px solid #ccc;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 1rem;
+      }
+
+      .card {
+        background: #444a55;
+        border: 1px solid #666c7a;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        padding: 1.2rem 1.5rem;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+        color: #cbd5e0;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+      }
+
+      input {
+        width: 100%;
+        max-width: 300px; /* limite la largeur max */
+        padding: 0.55rem 0.8rem;
+        margin-bottom: 0.75rem;
+        border: 1px solid #7892b0;
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: #e8ebf0;
+        color: #222;
+        box-shadow: inset 0 2px 5px rgba(120, 146, 176, 0.3);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #004d99;
+        box-shadow: 0 0 8px 2px #0073e6;
+        background-color: #f4f7ff;
+      }
+
+      button {
+        display: block;
+        margin: 0.5rem auto 0 auto; /* centré horizontalement */
+        max-width: 100px;
+        width: 100%;
+        padding: 0.55rem 1.4rem;
+        font-size: 1rem;
+        font-weight: 700;
+        background: linear-gradient(145deg, #0057b8, #003c7a);
+        color: white;
+        border: 1px solid #00264d;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.7);
+        transition: background 0.25s ease;
+        user-select: none;
+      }
+
+      button:hover {
+        background: linear-gradient(145deg, #003c7a, #001f3f);
+      }
+
+      button:hover {
+        background: linear-gradient(145deg, #003c7a, #001f3f);
+      }
+
+      .expense-item {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed #8899bb;
+        padding: 0.3rem 0;
+        color: #cbd5e0;
+        font-weight: 500;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+      }
+
+      .expense-item .actions button {
+        background: #800000;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        margin-left: 0.3rem;
+        padding: 0.25rem 0.5rem;
+        box-shadow: none;
+        border: none;
+      }
+
+      .expense-item .actions button:hover {
+        background: #aa0000;
+      }
+
+      .danger {
+        background: #660000;
+        color: #ffcccc;
+        border: 1px solid #cc4444;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 0 0 4px #ff9999;
+      }
+
+      .balance {
+        background: #2b463c;
+        border: 1px solid #4ea279;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-weight: 700;
+        color: #a9d8bf;
+        margin-top: 0.5rem;
+        text-shadow: 0 1px 2px #144733;
+      }
+
+      h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: #a0b8d6;
+        text-shadow: 1px 1px 2px #000;
+      }
+
+      #datetime {
+        text-align: center;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        color: #cbd5e0;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+      }
+
+      @media screen and (max-width: 1024px) {
+        body {
+          font-size: 1rem;
+        }
+        .container {
+          margin: 1rem;
+          padding: 1rem;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+        body {
+          font-size: 0.95rem;
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          font-size: 0.9rem;
+        }
+        input,
+        button {
+          font-size: 0.95rem;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        body {
+          font-size: 0.85rem;
+        }
+        button {
+          padding: 0.4rem 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>💰 Gestion de Budget — Style Radio France 2000</header>
+    <div id="datetime"></div>
+    <div class="container">
+      <div id="alert" class="danger" style="display: none">🚨 Attention : budget dépassé !</div>
+
+      <div class="card">
+        <label for="income">Montant de la paie :</label>
+        <input type="number" id="income" placeholder="Entrer votre revenu mensuel" />
+        <div id="balance-display" class="balance">Solde restant : 0€</div>
+      </div>
+
+      <div class="card">
+        <label for="category">Nouvelle dépense :</label>
+        <input type="text" id="category" placeholder="Catégorie" />
+        <input type="number" id="amount" placeholder="Montant" />
+        <button onclick="addExpense()">Ajouter</button>
+      </div>
+
+      <div class="card">
+        <h3>Dépenses :</h3>
+        <div id="expense-list"></div>
+        <div id="total" style="margin-top: 1rem; font-weight: bold">Total dépenses : 0€</div>
+      </div>
+
+      <div class="card">
+        <h3>Rubrique Nourriture 🍽️</h3>
+        <label for="food-budget">Budget nourriture :</label>
+        <input type="number" id="food-budget" placeholder="Ex: 200" />
+        <div id="food-balance" class="balance">Solde nourriture : 0€</div>
+
+        <label for="food-label">Nouvelle dépense nourriture :</label>
+        <input type="text" id="food-label" placeholder="Détail (ex: courses, resto)" />
+        <input type="number" id="food-amount" placeholder="Montant" />
+        <button onclick="addFoodExpense()">Ajouter</button>
+
+        <div id="food-list" style="margin-top: 1rem"></div>
+      </div>
+    </div>
+
+    <script>
+      const incomeInput = document.getElementById("income");
+      const categoryInput = document.getElementById("category");
+      const amountInput = document.getElementById("amount");
+      const expenseList = document.getElementById("expense-list");
+      const totalDisplay = document.getElementById("total");
+      const alertBox = document.getElementById("alert");
+      const balanceDisplay = document.getElementById("balance-display");
+
+      const foodBudgetInput = document.getElementById("food-budget");
+      const foodBalanceDisplay = document.getElementById("food-balance");
+      const foodAmountInput = document.getElementById("food-amount");
+      const foodLabelInput = document.getElementById("food-label");
+      const foodList = document.getElementById("food-list");
+
+      let expenses = [];
+      let foodExpenses = [];
+      let editIndex = null;
+
+      function loadState() {
+        const today = new Date();
+        const currentMonth = `${today.getFullYear()}-${today.getMonth()}`;
+        const lastReset = localStorage.getItem("lastReset");
+
+        if (lastReset !== currentMonth) {
+          localStorage.setItem("lastReset", currentMonth);
+          localStorage.clear();
+          expenses = [];
+          foodExpenses = [];
+          incomeInput.value = "";
+          foodBudgetInput.value = "";
+        } else {
+          expenses = JSON.parse(localStorage.getItem("expenses") || "[]");
+          foodExpenses = JSON.parse(localStorage.getItem("foodExpenses") || "[]");
+          incomeInput.value = localStorage.getItem("income") || "";
+          foodBudgetInput.value = localStorage.getItem("foodBudget") || "";
+        }
+
+        renderExpenses();
+        renderFoodExpenses();
+      }
+
+      incomeInput.addEventListener("input", () => {
+        localStorage.setItem("income", incomeInput.value);
+        updateBalance();
+        checkBudget();
+      });
+
+      foodBudgetInput.addEventListener("input", () => {
+        localStorage.setItem("foodBudget", foodBudgetInput.value);
+        updateBalance();
+        updateFoodBalance();
+      });
+
+      function addExpense() {
+        const category = categoryInput.value.trim();
+        const amount = parseFloat(amountInput.value);
+
+        if (!category || isNaN(amount)) return;
+
+        const newExpense = { category, amount };
+
+        if (editIndex !== null) {
+          expenses[editIndex] = newExpense;
+          editIndex = null;
+        } else {
+          expenses.push(newExpense);
+        }
+
+        saveExpenses();
+        categoryInput.value = "";
+        amountInput.value = "";
+      }
+
+      function saveExpenses() {
+        localStorage.setItem("expenses", JSON.stringify(expenses));
+        renderExpenses();
+      }
+
+      function renderExpenses() {
+        expenseList.innerHTML = "";
+        let total = 0;
+
+        expenses.forEach((exp, index) => {
+          total += exp.amount;
+          const div = document.createElement("div");
+          div.className = "expense-item";
+          div.innerHTML = `
+          <span>${exp.category} : ${exp.amount.toFixed(2)}€</span>
+          <div class="actions">
+            <button onclick="editExpense(${index})">Corriger</button>
+            <button class="delete" onclick="deleteExpense(${index})">Supprimer</button>
+          </div>`;
+          expenseList.appendChild(div);
+        });
+
+        totalDisplay.textContent = `Total dépenses : ${total.toFixed(2)}€`;
+        updateBalance();
+        checkBudget();
+      }
+
+      function deleteExpense(index) {
+        expenses.splice(index, 1);
+        saveExpenses();
+      }
+
+      function editExpense(index) {
+        const exp = expenses[index];
+        categoryInput.value = exp.category;
+        amountInput.value = exp.amount;
+        editIndex = index;
+      }
+
+      function updateBalance() {
+        const income = parseFloat(incomeInput.value) || 0;
+        const otherExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+        const foodBudget = parseFloat(foodBudgetInput.value) || 0;
+        const remaining = income - (otherExpenses + foodBudget);
+        balanceDisplay.textContent = `Solde restant : ${remaining.toFixed(2)}€`;
+        checkBudget();
+      }
+
+      function checkBudget() {
+        const income = parseFloat(incomeInput.value) || 0;
+        const total =
+          expenses.reduce((sum, e) => sum + e.amount, 0) + (parseFloat(foodBudgetInput.value) || 0);
+        alertBox.style.display = income && total > income ? "block" : "none";
+      }
+
+      function addFoodExpense() {
+        const label = foodLabelInput.value.trim();
+        const amount = parseFloat(foodAmountInput.value);
+
+        if (!label || isNaN(amount)) return;
+
+        foodExpenses.push({ label, amount });
+        localStorage.setItem("foodExpenses", JSON.stringify(foodExpenses));
+        renderFoodExpenses();
+
+        foodLabelInput.value = "";
+        foodAmountInput.value = "";
+      }
+
+      function renderFoodExpenses() {
+        foodList.innerHTML = "";
+        let total = 0;
+        foodExpenses.forEach((exp) => {
+          total += exp.amount;
+          const div = document.createElement("div");
+          div.className = "expense-item";
+          div.innerHTML = `<span>${exp.label} : ${exp.amount.toFixed(2)}€</span>`;
+          foodList.appendChild(div);
+        });
+        updateFoodBalance();
+      }
+
+      function updateFoodBalance() {
+        const budget = parseFloat(foodBudgetInput.value);
+        const total = foodExpenses.reduce((sum, e) => sum + e.amount, 0);
+        const remaining = budget ? budget - total : 0;
+        foodBalanceDisplay.textContent = `Solde nourriture : ${remaining.toFixed(2)}€`;
+      }
+
+      loadState();
+
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        };
+        document.getElementById("datetime").textContent = now.toLocaleDateString("fr-FR", options);
+      }
+      setInterval(updateDateTime, 1000);
+      updateDateTime();
+    </script>
+  </body>
+</html>
